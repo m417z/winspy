@@ -566,6 +566,8 @@ BOOL WinSpy_InitDlg(HWND hwnd)
 
 
 	// add items *before* the close item
+	InsertMenu(hSysMenu, SC_CLOSE, MF_BYCOMMAND | MF_ENABLED | MF_STRING, IDM_WINSPY_BROADCASTER, _T("&Broadcaster"));
+	InsertMenu(hSysMenu, SC_CLOSE, MF_BYCOMMAND | MF_SEPARATOR, (UINT_PTR)-1, _T(""));
 	InsertMenu(hSysMenu, SC_CLOSE, MF_BYCOMMAND | MF_ENABLED | MF_STRING, IDM_WINSPY_ABOUT, _T("&About"));
 	InsertMenu(hSysMenu, SC_CLOSE, MF_BYCOMMAND | MF_ENABLED | MF_STRING, IDM_WINSPY_OPTIONS, _T("&Options...\tAlt+Enter"));
 	InsertMenu(hSysMenu, SC_CLOSE, MF_BYCOMMAND | MF_ENABLED | MF_STRING, IDM_WINSPY_HELP, _T("&Help\tF1"));

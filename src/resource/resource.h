@@ -200,6 +200,7 @@
 #define IDM_PROPERTY_REMOVE             40046
 #define IDM_BYTES_COPY                  40047
 #define IDM_POPUP_POSTER                40048
+#define IDM_WINSPY_BROADCASTER          40049
 
 // Next default values for new objects
 // 
