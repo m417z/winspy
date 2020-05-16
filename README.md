@@ -19,3 +19,4 @@ The fork introduces the following improvements to the original WinSpy++ 1.7:
 * Autoupdate button, which refreshes the window properties periodically.
 * More extended styles.
 * lots of bug fixes and small improvements.
+* Broadcaster feature to broadcast send/post messages.
