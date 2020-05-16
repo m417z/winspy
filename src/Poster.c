@@ -564,7 +564,7 @@ INT_PTR CALLBACK PosterDlgProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPara
 
 void ShowPosterDlg(HWND hwndParent, HWND hwndTarget)
 {
-	if (IsWindow(spy_hCurWnd))
+	if (IsWindowEx(hwndTarget))
 	{
 		DialogBoxParam(
 			hInst,
