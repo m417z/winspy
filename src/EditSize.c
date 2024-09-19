@@ -38,21 +38,80 @@ void SetupEdits(HWND hwndDlg, HWND hwndTarget, RECT *prect)
 }
 
 //
+//  Align the target window's size/pos and update the
+//  contents of the edit boxes
+//
+void AlignTargetPos(HWND hwndDlg, HWND hwndTarget, UINT alignCommand)
+{
+    int x = GetDlgItemInt(hwndDlg, IDC_EDITX, 0, TRUE);
+    int y = GetDlgItemInt(hwndDlg, IDC_EDITY, 0, TRUE);
+    int w = GetDlgItemInt(hwndDlg, IDC_EDITW, 0, TRUE);
+    int h = GetDlgItemInt(hwndDlg, IDC_EDITH, 0, TRUE);
+
+    // Is this window a child control or not??
+    DWORD dwStyle = GetWindowLong(hwndTarget, GWL_STYLE);
+
+    // If this is a child window, then make its coords
+    // relative to its parent.
+    RECT containerRect;
+    if (dwStyle & WS_CHILD)
+    {
+        HWND hwndParent = GetParent(hwndTarget);
+        GetClientRect(hwndParent, &containerRect);
+    }
+    else
+    {
+        RECT rect = {x, y, x + w, y + h};
+        HMONITOR monitor = MonitorFromRect(&rect, MONITOR_DEFAULTTONEAREST);
+
+        MONITORINFO monitorInfo = { sizeof(monitorInfo) };
+        GetMonitorInfo(monitor, &monitorInfo);
+
+        CopyRect(&containerRect, &monitorInfo.rcWork);
+    }
+
+    switch (alignCommand) {
+    case IDC_ADJUSTWINPOS_ALIGN_TOP:
+        y = containerRect.top;
+        break;
+
+    case IDC_ADJUSTWINPOS_ALIGN_LEFT:
+        x = containerRect.left;
+        break;
+
+    case IDC_ADJUSTWINPOS_ALIGN_CENTER:
+        x = containerRect.left + (containerRect.right - containerRect.left - w) / 2;
+        y = containerRect.top + (containerRect.bottom - containerRect.top - h) / 2;
+        break;
+
+    case IDC_ADJUSTWINPOS_ALIGN_RIGHT:
+        x = containerRect.right - w;
+        break;
+
+    case IDC_ADJUSTWINPOS_ALIGN_BOTTOM:
+        y = containerRect.bottom - h;
+        break;
+    }
+
+    // Set the edit control's contents
+    SetDlgItemInt(hwndDlg, IDC_EDITX, x, TRUE);
+    SetDlgItemInt(hwndDlg, IDC_EDITY, y, TRUE);
+    SetDlgItemInt(hwndDlg, IDC_EDITW, w, TRUE);
+    SetDlgItemInt(hwndDlg, IDC_EDITH, h, TRUE);
+}
+
+//
 //  Set the target window's size/pos, based on the
 //  contents of the edit boxes
 //
 void SetTargetPos(HWND hwndDlg, HWND hwndTarget)
 {
-    RECT rect;
+    int x = GetDlgItemInt(hwndDlg, IDC_EDITX, 0, TRUE);
+    int y = GetDlgItemInt(hwndDlg, IDC_EDITY, 0, TRUE);
+    int w = GetDlgItemInt(hwndDlg, IDC_EDITW, 0, TRUE);
+    int h = GetDlgItemInt(hwndDlg, IDC_EDITH, 0, TRUE);
 
-    // We're using rect.bottom + rect.right as height/width
-    rect.left = GetDlgItemInt(hwndDlg, IDC_EDITX, 0, TRUE);
-    rect.top = GetDlgItemInt(hwndDlg, IDC_EDITY, 0, TRUE);
-    rect.right = GetDlgItemInt(hwndDlg, IDC_EDITW, 0, TRUE);
-    rect.bottom = GetDlgItemInt(hwndDlg, IDC_EDITH, 0, TRUE);
-
-    SetWindowPos(hwndTarget, 0, rect.left, rect.top, rect.right, rect.bottom,
-        SWP_NOACTIVATE | SWP_NOZORDER);
+    SetWindowPos(hwndTarget, NULL, x, y, w, h, SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
 //
@@ -115,6 +174,21 @@ INT_PTR CALLBACK EditSizeDlgProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPa
 
         case IDC_ADJUST:
 
+            SetTargetPos(hwnd, hwndTarget);
+
+            // Get the window's coords again to see what happened
+            GetWindowRect(hwndTarget, &rect);
+            SetupEdits(hwnd, hwndTarget, &rect);
+
+            return TRUE;
+
+        case IDC_ADJUSTWINPOS_ALIGN_TOP:
+        case IDC_ADJUSTWINPOS_ALIGN_LEFT:
+        case IDC_ADJUSTWINPOS_ALIGN_CENTER:
+        case IDC_ADJUSTWINPOS_ALIGN_RIGHT:
+        case IDC_ADJUSTWINPOS_ALIGN_BOTTOM:
+
+            AlignTargetPos(hwnd, hwndTarget, LOWORD(wParam));
             SetTargetPos(hwnd, hwndTarget);
 
             // Get the window's coords again to see what happened

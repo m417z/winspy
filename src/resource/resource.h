@@ -147,6 +147,11 @@
 #define IDC_STYLEEXT                    1091
 #define IDC_EDITSTYLEEXT                1092
 #define IDC_WINDOW_BAND                 1093
+#define IDC_ADJUSTWINPOS_ALIGN_TOP      1094
+#define IDC_ADJUSTWINPOS_ALIGN_LEFT     1095
+#define IDC_ADJUSTWINPOS_ALIGN_CENTER   1096
+#define IDC_ADJUSTWINPOS_ALIGN_RIGHT    1097
+#define IDC_ADJUSTWINPOS_ALIGN_BOTTOM   1098
 #define IDM_GOTO_TAB_GENERAL            3001
 #define IDM_GOTO_TAB_STYLES             3002
 #define IDM_GOTO_TAB_PROPERTIES         3003
@@ -189,7 +194,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        168
 #define _APS_NEXT_COMMAND_VALUE         40050
-#define _APS_NEXT_CONTROL_VALUE         1094
+#define _APS_NEXT_CONTROL_VALUE         1099
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
