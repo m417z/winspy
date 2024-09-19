@@ -26,6 +26,22 @@ typedef DWORD(WINAPI * GetModuleFileNameExProc)(HANDLE, HMODULE, PWSTR, DWORD);
 
 typedef BOOL(WINAPI * QueryFullProcessImageNameProc)(HANDLE hProcess, DWORD dwFlags, PWSTR lpExeName, PDWORD lpdwSize);
 
+typedef HRESULT(WINAPI * GetThreadDescriptionProc)(HANDLE hThread, PWSTR *ppszThreadDescription);
+
+HRESULT TryGetThreadDescription(HANDLE hThread, PWSTR *ppszThreadDescription) {
+    static GetThreadDescriptionProc fnGetThreadDescription = NULL;
+
+    if (!fnGetThreadDescription)
+    {
+        fnGetThreadDescription = (GetThreadDescriptionProc)GetProcAddress(GetModuleHandle(TEXT("kernel32")), "GetThreadDescription");
+
+        if (!fnGetThreadDescription)
+            return E_FAIL;
+    }
+
+    return fnGetThreadDescription(hThread, ppszThreadDescription);
+}
+
 BOOL GetProcessNameByPid1(DWORD dwProcessId, WCHAR szName[], DWORD nNameSize, WCHAR szPath[], DWORD nPathSize)
 {
     HANDLE h = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
@@ -231,7 +247,22 @@ void UpdateProcessTab(HWND hwnd, DWORD dwOverridePID)
 
     if (fValid)
     {
-        FormatDlgItemText(hwndDlg, IDC_TID, L"%08X  (%u)", dwThreadId, dwThreadId);
+        PWSTR pszThreadDescription = NULL;
+        HANDLE hThread = OpenThread(THREAD_QUERY_LIMITED_INFORMATION, FALSE, dwThreadId);
+        if (hThread) {
+            if (FAILED(TryGetThreadDescription(hThread, &pszThreadDescription))) {
+                pszThreadDescription = NULL;
+            }
+
+            CloseHandle(hThread);
+        }
+
+        FormatDlgItemText(hwndDlg, IDC_TID, L"%08X  (%u)%s%s", dwThreadId, dwThreadId,
+            (pszThreadDescription && *pszThreadDescription) ? L"  -  " : L"", pszThreadDescription ? pszThreadDescription : L"");
+
+        if (pszThreadDescription) {
+            LocalFree(pszThreadDescription);
+        }
     }
     else
     {
