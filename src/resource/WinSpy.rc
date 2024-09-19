@@ -656,8 +656,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,8,0,0
- PRODUCTVERSION 1,8,0,0
+ FILEVERSION 1,9,0,0
+ PRODUCTVERSION 1,9,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -674,12 +674,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Catch22 Productions + Various"
             VALUE "FileDescription", "WinSpy"
-            VALUE "FileVersion", "1.8"
+            VALUE "FileVersion", "1.9"
             VALUE "InternalName", "WinSpy"
             VALUE "LegalCopyright", "Copyright © 2012 Catch22 Productions"
             VALUE "OriginalFilename", "WinSpy.exe"
             VALUE "ProductName", "WinSpy"
-            VALUE "ProductVersion", "1.8"
+            VALUE "ProductVersion", "1.9"
         END
     END
     BLOCK "VarFileInfo"
