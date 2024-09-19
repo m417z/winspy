@@ -4,8 +4,6 @@
 //  Copyright (c) 2002 by J Brown
 //  Freeware
 //
-//  BOOL GetRemoteClassInfoEx(HWND hwnd)
-//
 //  In order to retrieve private class information for a
 //  window in another process, we have to create
 //  a remote thread in that process and call GetClassInfoEx from

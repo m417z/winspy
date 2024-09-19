@@ -3,8 +3,6 @@
 //  Copyright (c) 2002 by J Brown
 //  Freeware
 //
-//  void SetScrollInfo(HWND hwnd)
-//
 //  Fill the scrollbar-tab-pane with scrollbar info for the
 //  specified window
 //

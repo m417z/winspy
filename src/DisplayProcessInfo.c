@@ -3,8 +3,6 @@
 //  Copyright (c) 2002 by J Brown
 //  Freeware
 //
-//  void SetProcesInfo(HWND hwnd)
-//
 //  Fill the process-tab-pane with process info for the
 //  specified window.
 //

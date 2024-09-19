@@ -6,11 +6,6 @@
 //
 //  Implements the Property Editor dialog box
 //
-//  void ShowWindowPropertyEditor(HWND hwndParent, HWND hwndTarget)
-//
-//  hwndParent - parent window of dialog
-//  hwndTarget - target window
-//
 
 #include "WinSpy.h"
 #include "resource.h"

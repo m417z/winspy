@@ -3,8 +3,6 @@
 //  Copyright (c) 2002 by J Brown
 //  Freeware
 //
-//  void SetWindowInfo(HWND hwnd)
-//
 //  Fill the window-tab-pane with list of child+siblings
 //
 

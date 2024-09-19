@@ -3,8 +3,6 @@
 //  Copyright (c) 2002 by J Brown
 //  Freeware
 //
-//  void SetClassInfo(HWND hwnd)
-//
 //  Fill the class-tab-pane with class info for the
 //  specified window
 //

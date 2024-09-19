@@ -4,8 +4,6 @@
 //  Copyright (c) 2002 by J Brown
 //  Freeware
 //
-//  HWND WindowFromPointEx(POINT pt)
-//
 //  Provides a better implementation of WindowFromPoint.
 //  This function can return any window under the mouse,
 //  including controls nested inside group-boxes, nested

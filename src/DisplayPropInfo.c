@@ -3,8 +3,6 @@
 //  Copyright (c) 2002 by J Brown
 //  Freeware
 //
-//  void SetPropertyInfo(HWND hwnd)
-//
 //  Fill the properties-tab-pane with class info for the
 //  specified window
 //

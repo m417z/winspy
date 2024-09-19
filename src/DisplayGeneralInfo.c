@@ -3,8 +3,6 @@
 //  Copyright (c) 2002 by J Brown
 //  Freeware
 //
-//  void SetGeneralInfo(HWND hwnd)
-//
 //  Fill the general-tab-pane with general info for the
 //  specified window
 //
