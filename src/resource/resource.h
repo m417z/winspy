@@ -146,6 +146,7 @@
 #define IDC_STYLEEXT_LABEL              1090
 #define IDC_STYLEEXT                    1091
 #define IDC_EDITSTYLEEXT                1092
+#define IDC_WINDOW_BAND                 1093
 #define IDM_GOTO_TAB_GENERAL            3001
 #define IDM_GOTO_TAB_STYLES             3002
 #define IDM_GOTO_TAB_PROPERTIES         3003
@@ -182,13 +183,13 @@
 #define IDM_WINSPY_BROADCASTER          40049
 
 // Next default values for new objects
-//
+// 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        168
 #define _APS_NEXT_COMMAND_VALUE         40050
-#define _APS_NEXT_CONTROL_VALUE         1090
+#define _APS_NEXT_CONTROL_VALUE         1094
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

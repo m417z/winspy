@@ -40,6 +40,7 @@ typedef DPI_AWARENESS_CONTEXT (WINAPI * PFN_GetDpiAwarenessContextForProcess)(HA
 typedef UINT (WINAPI * PFN_GetSystemDpiForProcess)(HANDLE);
 typedef BOOL (WINAPI * PFN_SetProcessDpiAwarenessContext)(DPI_AWARENESS_CONTEXT);
 typedef UINT (WINAPI * PFN_GetAwarenessFromDpiAwarenessContext)(DPI_AWARENESS_CONTEXT);
+typedef BOOL (WINAPI * PFN_GetWindowBand)(HWND hWnd, PDWORD pdwBand);
 
 static PFN_GetDpiForWindow s_pfnGetDpiForWindow = NULL;
 static PFN_GetWindowDpiAwarenessContext s_pfnGetWindowDpiAwarenessContext = NULL;
@@ -49,8 +50,34 @@ static PFN_GetDpiAwarenessContextForProcess s_pfnGetDpiAwarenessContextForProces
 static PFN_GetSystemDpiForProcess s_pfnGetSystemDpiForProcess = NULL;
 static PFN_SetProcessDpiAwarenessContext s_pfnSetProcessDpiAwarenessContext = NULL;
 static PFN_GetAwarenessFromDpiAwarenessContext s_pfnGetAwarenessFromDpiAwarenessContext = NULL;
+static PFN_GetWindowBand s_pfnGetWindowBand = NULL;
 
 static BOOL s_fCheckedForAPIs = FALSE;
+
+// https://blog.adeltax.com/window-z-order-in-windows-10/
+static PCSTR s_pszWindowBands[] = {
+     "ZBID_DEFAULT",
+     "ZBID_DESKTOP",
+     "ZBID_UIACCESS",
+     "ZBID_IMMERSIVE_IHM",
+     "ZBID_IMMERSIVE_NOTIFICATION",
+     "ZBID_IMMERSIVE_APPCHROME",
+     "ZBID_IMMERSIVE_MOGO",
+     "ZBID_IMMERSIVE_EDGY",
+     "ZBID_IMMERSIVE_INACTIVEMOBODY",
+     "ZBID_IMMERSIVE_INACTIVEDOCK",
+     "ZBID_IMMERSIVE_ACTIVEMOBODY",
+     "ZBID_IMMERSIVE_ACTIVEDOCK",
+     "ZBID_IMMERSIVE_BACKGROUND",
+     "ZBID_IMMERSIVE_SEARCH",
+     "ZBID_GENUINE_WINDOWS",
+     "ZBID_IMMERSIVE_RESTRICTED",
+     "ZBID_SYSTEM_TOOLS",
+
+     //Windows 10+
+     "ZBID_LOCK",
+     "ZBID_ABOVELOCK_UX",
+};
 
 void InitializeDpiApis()
 {
@@ -66,6 +93,7 @@ void InitializeDpiApis()
         s_pfnGetSystemDpiForProcess = (PFN_GetSystemDpiForProcess)GetProcAddress(hmod, "GetSystemDpiForProcess");
         s_pfnSetProcessDpiAwarenessContext = (PFN_SetProcessDpiAwarenessContext)GetProcAddress(hmod, "SetProcessDpiAwarenessContext");
         s_pfnGetAwarenessFromDpiAwarenessContext = (PFN_GetAwarenessFromDpiAwarenessContext)GetProcAddress(hmod, "GetAwarenessFromDpiAwarenessContext");
+        s_pfnGetWindowBand = (PFN_GetWindowBand)GetProcAddress(hmod, "GetWindowBand");
         s_fCheckedForAPIs = TRUE;
     }
 }
@@ -274,6 +302,28 @@ void UpdateDpiTab(HWND hwnd)
     }
 
     SetDlgItemTextExA(hwndDlg, IDC_WINDOW_DPI_AWARENESS, pszValue);
+
+    // Band field
+
+    if (fValid)
+    {
+        if (s_pfnGetWindowBand)
+        {
+            DWORD dwBand = 0;
+            s_pfnGetWindowBand(hwnd, &dwBand);
+
+            sprintf_s(szTemp, ARRAYSIZE(szTemp), "%s  (%u)",
+                dwBand < ARRAYSIZE(s_pszWindowBands) ? s_pszWindowBands[dwBand] : "Unknown", dwBand);
+            pszValue = szTemp;
+        }
+        else
+        {
+            pszValue = "<Unavailable>";
+        }
+    }
+
+    SetDlgItemTextExA(hwndDlg, IDC_WINDOW_BAND, pszValue);
+
 }
 
 void MarkProcessAsPerMonitorDpiAware()
