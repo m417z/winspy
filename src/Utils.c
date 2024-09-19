@@ -95,7 +95,7 @@ BOOL ShowDlgItem(HWND hwnd, UINT nCtrlId, DWORD dwShowCmd)
 
 
 //
-// SetDlgItemTextEx is a Variant of SetDlgItemText that that avoids re-setting
+// SetDlgItemTextEx is a Variant of SetDlgItemText that avoids re-setting
 // the value if it is the same as what is already in the control.  This allows
 // you to, say, select the text in a label and not have the selection state
 // cleared by a redundant reset of the same value.

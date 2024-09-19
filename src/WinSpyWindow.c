@@ -55,7 +55,7 @@ void GetWorkArea(RECT *prcWinRect, RECT *prcWorkArea)
 
     hUser32 = GetModuleHandle(L"USER32.DLL");
 
-    // if we havn't already tried,
+    // if we haven't already tried,
     if (fFindMultiMon == TRUE)
     {
         pMonitorFromRect = (MFR_PROC)GetProcAddress(hUser32, "MonitorFromRect");

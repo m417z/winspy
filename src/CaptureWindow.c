@@ -234,7 +234,7 @@ static HANDLE BitmapToDIB(HBITMAP hBitmap, HPALETTE hPal)
     /* lock memory block and get pointer to it */
     lpbi = (BITMAPINFOHEADER *)GlobalLock(hDIB);
 
-    /*  call GetDIBits with a NON-NULL lpBits param, and actualy get the
+    /*  call GetDIBits with a NON-NULL lpBits param, and actually get the
      *  bits this time
      */
     if (GetDIBits(hDC, hBitmap, 0, (WORD)bi.biHeight, (PSTR)lpbi + (WORD)lpbi
