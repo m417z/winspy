@@ -722,9 +722,7 @@ BOOL WinSpyDlg_OnHotKey(WPARAM id)
         {
             // Open the window if collapsed.
 
-            UINT layout = GetWindowLayout(g_hwndMain);
-
-            if (layout == WINSPY_MINIMIZED)
+            if (GetWindowLayout(g_hwndMain) == WINSPY_MINIMIZED)
             {
                 SetWindowLayout(g_hwndMain, WINSPY_LASTMAX);
             }
@@ -733,6 +731,13 @@ BOOL WinSpyDlg_OnHotKey(WPARAM id)
 
             hwnd = WindowFromPointEx(pt, FALSE, FALSE);
             DisplayWindowInfo(hwnd);
+
+            // Select the window in the treeview.
+
+            if (GetWindowLayout(g_hwndMain) == WINSPY_EXPANDED)
+            {
+                WindowTree_Locate(hwnd);
+            }
         }
     }
 
