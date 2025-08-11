@@ -13,6 +13,7 @@
 #include "Poster.h"
 #include "resource.h"
 #include "Utils.h"
+#include "AutoCompleteComboBox.h"
 
 typedef struct {
     PCSTR pszMsgName;
@@ -543,7 +544,7 @@ INT_PTR CALLBACK PosterDlgProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPara
     {
     case WM_INITDIALOG:
         hwndTarget = (HWND)lParam;
-
+        InitAutoCompleteComboBox(hwnd, IDC_POSTER_MESSAGES);
         SetInitialGuiInfo(hwnd, hwndTarget);
         return TRUE;
 

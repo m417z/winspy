@@ -111,6 +111,9 @@
     <ClCompile Include="DisplayDpiInfo.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AutoCompleteComboBox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitmapButton.h">
@@ -138,6 +141,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Poster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoCompleteComboBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
