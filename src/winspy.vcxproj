@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AutoCompleteComboBox.c" />
     <ClCompile Include="BitmapButton.c" />
     <ClCompile Include="CaptureWindow.c" />
     <ClCompile Include="DisplayClassInfo.c" />
@@ -159,6 +160,7 @@
     <ClCompile Include="WinSpyWindow.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AutoCompleteComboBox.h" />
     <ClInclude Include="BitmapButton.h" />
     <ClInclude Include="CaptureWindow.h" />
     <ClInclude Include="FindTool.h" />
